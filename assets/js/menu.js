@@ -16,10 +16,7 @@ var Menu = {
     // 
     //
     click: function (button){
-
-        LargeurJeux=button.my;
-        HauteurJeux=LargeurJeux;
-
+       
         // remet en mode normal les boutons
         for( var i = 0; i< this.NiveauBtn.length; i++){
             this.NiveauBtn[i].tint = 0xffffff;
@@ -98,7 +95,7 @@ var Menu = {
 
         // Active le bon bouton
         var buttonIndice = [0,0,0,4,1,5,2,6,3,7];
-        this.click(this.NiveauBtn[buttonIndice[LargeurJeux]]);
+        this.click(this.NiveauBtn[buttonIndice[NiveauJeux]]);
 
         // creation de l'ecran d'aide
         var style = { font: "bold "+11*ratio*ratio+"px sans-serif", fill: '#ffffff' , align: 'left', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 40 };
