@@ -3,7 +3,7 @@ var game;
 
 var LargeurJeuxPixel = 1024 ;
 var HauteurJeuxPixel = 600;
-var NbImagesTotale = 4;
+var NbImagesTotale = 7;
 var NbImages = 3;
 var NiveauJeux = 2;
 var Score = 0;
