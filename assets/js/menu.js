@@ -12,7 +12,7 @@ var Menu = {
         game.load.image("playGame-btn", "./assets/images/playGame-btn.png");
     },
 
-//
+    //
     // 
     //
     click: function (button){

@@ -3,22 +3,26 @@ var Game = {
 
 	rejoueBtn : 0,
 	audio : 0,
+	choix : -1,
 	//
 	//  preload
 	//
 	preload: function() {
 
 	    game.load.image("button", "./assets/images/button-92x31.png", false);
+		game.load.audio('bravo', 'assets/audio/Fr-bravo.ogg');
+		game.load.audio('recommencer', 'assets/audio/Fr-recommencer.ogg');
 
 	    // chargement des images
-	    game.load.image("img1", "./assets/images/1.png", false);
-	    game.load.image("img2", "./assets/images/2.png", false);
-	    game.load.image("img3", "./assets/images/3.png", false);
-
+	    for (i = 1 ; i<= NbImagesTotale; i++) {
+	    	game.load.image("img"+i, "./assets/images/"+i+".png", false);	
+	    }
+	    
 	    // chargement des son
-		game.load.audio('son1', 'assets/audio/1.ogg');
-		game.load.audio('son2', 'assets/audio/2.ogg');
-		game.load.audio('son3', 'assets/audio/3.ogg');
+	    for (i = 1 ; i<= NbImagesTotale; i++) {
+			game.load.audio('son'+i, 'assets/audio/'+i+'.ogg');
+		}
+		
 
 	},
 	//
@@ -28,22 +32,69 @@ var Game = {
 		this.audio.play();
 	},
 	//
+    // 
+    //
+    clickImage: function (button){
+
+		console.log('my:'+button.my+' Choix:'+this.choix);
+
+       	if (button.my == this.choix) {
+			this.bravoSon.play();
+
+			this.state.start('Game');
+    	}
+       	else {
+       		this.recommencerSon.play();
+       	}
+        // selection le bouton
+        button.tint = 0x0000ff;        
+    },
+	//
 	//  create
 	//
 	create : function()  {
+		var startList = new Array();
+		var choixList = new Array();
 
-		var pos = LargeurJeuxPixel / 4;
-		var sprite1 = game.add.sprite(pos * 0, 30, 'img1');
-		var sprite2 = game.add.sprite(pos * 1, 30, 'img2');
-		var sprite3 = game.add.sprite(pos * 2, 30, 'img3');
+		this.bravoSon = game.add.audio('bravo');
+		this.recommencerSon = game.add.audio('recommencer');
 
-		sprite1.scale.setTo(0.5, 0.5);
-		sprite2.scale.setTo(0.5, 0.5);
-		sprite3.scale.setTo(0.5, 0.5);
-		
+		var pos = LargeurJeuxPixel / (NbImages + 1);
+
+
+		// remplie un liste avec toute les images
+		for(i = 1; i<= NbImagesTotale; i++) {
+			startList.push(i);
+		}
+
+		console.log("startList" + startList)	;	
 		// 
-		sonChoisi = game.rnd.integerInRange(1,NbImages);
+		for (i = 1; i <= NbImages; i++) {
+			img = game.rnd.integerInRange(1,startList.length)-1; 
+			
+			console.log('-----');
+			console.log('rnd :'+img);
+			console.log("startList" + startList)	;
+		
+			val = startList[img];
+			choixList.push(val);
+			tmp = game.add.button(pos * (i - 1), 30, 'img'+val, this.clickImage, this);
+			tmp.scale.setTo(0.5, 0.5);
+			tmp.my = val;	
 
+			console.log("choixList" + choixList)	;
+			startList.splice( img, 1);
+			
+		}
+	
+		console.log("startList" + startList)	;
+		console.log("choixList" + choixList)	;
+		// 
+		sonChoisi = game.rnd.integerInRange(1,choixList.length) - 1;
+		this.choix = choixList[sonChoisi];
+		console.log("choix" + this.choix);
+
+		// bouton pour relancer le son du mot.
 		this.rejoueBtn = game.add.button(pos * 3, 90, "button", this.click, this);
         this.rejoueBtn.addChild(new Phaser.Text(this.game, 6, 4, "Mot", { font: "bold 18px sans-serif", fill: '#ffffff' }));
         
