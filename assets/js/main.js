@@ -6,6 +6,7 @@ var HauteurJeuxPixel = 600;
 var NbImagesTotale = 4;
 var NbImages = 3;
 var NiveauJeux = 2;
+var Score = 0;
 
 // Create a new game instance 600px wide and 450px tall:
 game = new Phaser.Game(LargeurJeuxPixel, HauteurJeuxPixel, Phaser.CANVAS, 'phaser-example');
