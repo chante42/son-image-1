@@ -6,7 +6,7 @@ var Game = {
 	choix : -1,
 	score : 3,
 	imagesListe : 0,
-
+	positionXBouton  : 0,
 	//
 	//  preload
 	//
@@ -72,10 +72,12 @@ var Game = {
 		var startList = new Array();
 		var choixList = new Array();
 
+		game.stage.backgroundColor = "#80CCFF";
 		this.bravoSon = game.add.audio('bravo');
 		this.recommencerSon = game.add.audio('recommencer');
 
-		var pos = LargeurJeuxPixel / (NbImages + 1);
+		var posx = LargeurJeuxPixel / (NbImages + 1);
+		var posy = 30;
 
 
 		// remplie un liste avec toute les images
@@ -96,7 +98,12 @@ var Game = {
 			console.log('noImg :'+noImg + ', val:'+ val);
 		
 			choixList.push(val);
-			tmp = game.add.button(pos * (i - 1), 30, 'img'+val, this.clickImage, this);
+
+			// affiche sur 3 colonnes
+			posx = (LargeurJeuxPixel / NbImagesColonne + 1) * ((i -1) % NbImagesColonne);
+			posy = 30 + Math.trunc((i - 1) / NbImagesColonne) * 300;
+
+			tmp = game.add.button(posx, posy, 'img'+val, this.clickImage, this);
 			tmp.scale.setTo(0.5, 0.5);
 			tmp.my = val;	
 			this.imagesListe.add(tmp); // pour la destruction
@@ -115,11 +122,12 @@ var Game = {
 		console.log("son choisi : "+sonChoisi+", choix : " + this.choix);
 
 		// bouton pour relancer le son du mot.
-		this.rejoueBtn = game.add.button(pos * 3, 90, "button", this.clickRepete, this);
+		this.positionXBouton =  LargeurJeuxPixel - 110,
+		this.rejoueBtn = game.add.button( this.positionXBouton , 90, "button", this.clickRepete, this);
         this.rejoueBtn.addChild(new Phaser.Text(this.game, 6, 4, "Répéter", { font: "bold 18px sans-serif", fill: '#ffffff' }));
 
         // bouton pour le mot suivant
-		this.suivantBtn = game.add.button(pos * 3, 130, "button", this.clickSuivant, this);
+		this.suivantBtn = game.add.button(this.positionXBouton, 130, "button", this.clickSuivant, this);
         this.suivantBtn.addChild(new Phaser.Text(this.game, 6, 4, "Suivant", { font: "bold 18px sans-serif", fill: '#ffffff' }));
         this.suivantBtn.visible = false;
         this.suivantBtn.tint = 0x555555;
@@ -139,9 +147,8 @@ var Game = {
 	//
 	render : function() {
 
-		var pos = LargeurJeuxPixel / (NbImages + 1) *3;
 		//game.debug.text('LargeurJeux : '+LargeurJeux, InfoPosX, 40, 'rgb(255,0,0)');
-	    game.debug.text('point : '+Score, pos, 40, 'rgb(0,255,0)');
+	    game.debug.text('point : '+Score, this.positionXBouton, 40, { font: "bold 18px sans-serif", fill: '#000000' });
 
 	},
 

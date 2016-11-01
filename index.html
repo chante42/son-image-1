@@ -3,8 +3,8 @@
 <head>
 	<style type="text/css">
 		body{
-			background: #000000;
-			color : #FFFFFF;
+			background: #80ccff;
+			color : #000000;
 			font-size : 24px;
 			padding:0px;
 			margin:0px;
@@ -20,6 +20,30 @@
 
 	<meta charset="utf-8">
 
+
+
+</head>
+<body id="page1" >
+	<center>
+		<div>Image Son 1<div>
+		<hr></hr>
+		<div id="phaser-example"></div>
+	<center>
+
+	<!----------  FIREBASE ------>
+	<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyBbAlFgvCbCXTZj-c-m_jYT32eDpZo-iuw",
+	    authDomain: "gebjeuxedu.firebaseapp.com",
+	    databaseURL: "https://gebjeuxedu.firebaseio.com",
+	    storageBucket: "",
+	    messagingSenderId: "423438118201"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+
 	 <!--- GOOGLE TAG -->
 	<script type="text/javascript">
 	    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -31,6 +55,7 @@
 	    } catch(err) {}
 	</script>
 
+	<!----- message de fermeture ---- >
 	<script language="javascript">
 		//Avant la fermeture de la fenêtre on appelle notre fonction closeIt
 		// -=-= OCH window.onbeforeunload = closeIt;
@@ -43,13 +68,5 @@
 		
 		
 	</script>
-
-</head>
-<body id="page1" >
-	<center>
-		<div>Image Son 1<div>
-		<hr></hr>
-		<div id="phaser-example"></div>
-	<center>
 </body>
 </html>

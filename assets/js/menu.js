@@ -44,6 +44,9 @@ var Menu = {
     //
     //
     create: function () {
+
+        game.stage.backgroundColor = "#80CCFF";
+        
         // Add a sprite to your game, here the sprite will be the game's logo
         // Parameters are : X , Y , image name (see above) 
         var x1 = LargeurJeuxPixel / 2 - 100 + 10;

@@ -3,7 +3,8 @@ var game;
 
 var LargeurJeuxPixel = 1024 ;
 var HauteurJeuxPixel = 600;
-var NbImagesTotale = 7;
+var NbImagesColonne = 3;
+var NbImagesTotale = 10;
 var NbImages = 3;
 var NiveauJeux = 2;
 var Score = 0;
@@ -14,6 +15,8 @@ game = new Phaser.Game(LargeurJeuxPixel, HauteurJeuxPixel, Phaser.CANVAS, 'phase
 function UrlParametre (sVar) {
   return unescape(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + escape(sVar).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 }
+
+
 
 // First parameter is how our state will be called.
 // Second parameter is an object containing the needed methods for state functionality
