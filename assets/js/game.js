@@ -5,6 +5,8 @@ var Game = {
 	audio : 0,
 	choix : -1,
 	score : 3,
+	imagesListe : 0,
+
 	//
 	//  preload
 	//
@@ -82,6 +84,7 @@ var Game = {
 		}
 
 		// 
+		this.imagesListe = game.add.group();
 		for (i = 1; i <= NbImages; i++) {
 			noImg = game.rnd.integerInRange(1,startList.length); 
 			
@@ -96,6 +99,7 @@ var Game = {
 			tmp = game.add.button(pos * (i - 1), 30, 'img'+val, this.clickImage, this);
 			tmp.scale.setTo(0.5, 0.5);
 			tmp.my = val;	
+			this.imagesListe.add(tmp); // pour la destruction
 
 			console.log("choixList : " + choixList)	;
 			startList.splice( noImg -1, 1);
@@ -138,6 +142,24 @@ var Game = {
 		var pos = LargeurJeuxPixel / (NbImages + 1) *3;
 		//game.debug.text('LargeurJeux : '+LargeurJeux, InfoPosX, 40, 'rgb(255,0,0)');
 	    game.debug.text('point : '+Score, pos, 40, 'rgb(0,255,0)');
+
+	},
+
+	//
+	//
+	//
+	shutdown: function () { 
+		this.rejoueBtn.kill();
+		this.rejoueBtn = null;
+
+		this.audio.stop();
+		this.audio = null;
+		
+		this.suivantBtn.kill();
+		this.suivantBtn = null;
+
+		this.imagesListe.removeAll();
+		this.imagesListe= null;
 
 	}
 	   
