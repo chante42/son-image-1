@@ -8,6 +8,7 @@ var Game_Win = {
 
     create : function() {
 
+        game.stage.backgroundColor = "#80CCFF";
         // Create button to start game like in Menu.
         this.add.button(0, 0, 'gamewin', this.startGame, this);
 
