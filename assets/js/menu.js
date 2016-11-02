@@ -24,6 +24,8 @@ var Menu = {
 
         // selection le bouton
         button.tint = 0x0000ff;      
+
+        NbImages = button.nbImage;
         
     },
     //
@@ -39,6 +41,12 @@ var Menu = {
     aideFin: function () {
         AideEcran.visible = false;
         console.log("aideFin");
+    },
+    //
+    // stat
+    //
+    stat: function () {
+        game.state.start('Game_Stat');
     },
     //
     //
@@ -67,34 +75,37 @@ var Menu = {
         helpBtn.tint = 0x00ff00;
         helpBtn.addChild(new Phaser.Text(this.game, 5, 6, "Règles du jeux", { font: "bold 12px sans-serif", fill: '#ffffff' }));
 
+        // bouton stat
+        var statBtn = game.add.button(LargeurJeuxPixel - 10 * ratio - 90 , HauteurJeuxPixel - 40 *ratio  ,"button", this.stat, this);
+        statBtn.tint = 0x00ff00;
+        statBtn.addChild(new Phaser.Text(this.game, 5, 6, "Statistique", { font: "bold 14px sans-serif", fill: '#ffffff' }));
+
+
+
         // selection du niveau
         this.NiveauBtn[0] = game.add.button(x1 , y+ 10 * ratio, "button", this.click, this);
         this.NiveauBtn[0].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 1", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        this.NiveauBtn[0].my= 2;
+        this.NiveauBtn[0].nbImage= 1;
 
-        this.NiveauBtn[1] = game.add.button(x1, y + 45 * ratio, "button", this.click, this);
-        this.NiveauBtn[1].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 3", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        this.NiveauBtn[1].my= 4;
+        this.NiveauBtn[1] = game.add.button(x2, y + 10 * ratio, "button", this.click, this);
+        this.NiveauBtn[1].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 2", { font: "bold 18px sans-serif", fill: '#ffffff' }));
+        this.NiveauBtn[1].nbImage= 2;
 
-        this.NiveauBtn[2] = game.add.button(x1, y + 80 * ratio, "button", this.click, this);
-        this.NiveauBtn[2].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 5", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        this.NiveauBtn[2].my= 6;
+        this.NiveauBtn[2] = game.add.button(x1, y + 45 * ratio, "button", this.click, this);
+        this.NiveauBtn[2].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 3", { font: "bold 18px sans-serif", fill: '#ffffff' }));
+        this.NiveauBtn[2].nbImage= 3;
 
-        this.NiveauBtn[3] = game.add.button((x1 + x2) /2 , y + 115 * ratio, "button", this.click, this);
-        this.NiveauBtn[3].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 7", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        this.NiveauBtn[3].my= 8;
+        this.NiveauBtn[3] = game.add.button(x2, y + 45 * ratio, "button", this.click, this);
+        this.NiveauBtn[3].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 4", { font: "bold 18px sans-serif", fill: '#ffffff' }));
+        this.NiveauBtn[3].nbImage= 4;
 
-        this.NiveauBtn[4] = game.add.button(x2, y + 10 * ratio, "button", this.click, this);
-        this.NiveauBtn[4].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 2", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        this.NiveauBtn[4].my= 3;
-
-        this.NiveauBtn[5] = game.add.button(x2, y + 45 * ratio, "button", this.click, this);
-        this.NiveauBtn[5].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 4", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        this.NiveauBtn[5].my= 5;
-
-        this.NiveauBtn[6] = game.add.button(x2, y + 80 * ratio, "button", this.click, this);
-        this.NiveauBtn[6].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 6", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        this.NiveauBtn[6].my= 7;
+        this.NiveauBtn[4] = game.add.button(x1, y + 80 * ratio, "button", this.click, this);
+        this.NiveauBtn[4].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 5", { font: "bold 18px sans-serif", fill: '#ffffff' }));
+        this.NiveauBtn[4].nbImage= 5;
+        
+        this.NiveauBtn[5] = game.add.button(x2, y + 80 * ratio, "button", this.click, this);
+        this.NiveauBtn[5].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 6", { font: "bold 18px sans-serif", fill: '#ffffff' }));
+        this.NiveauBtn[5].nbImage= 6;
 
         // Active le bon bouton
         var buttonIndice = [0,0,0,4,1,5,2,6,3,7];

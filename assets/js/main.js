@@ -1,3 +1,4 @@
+
 var game;
 
 
@@ -24,6 +25,7 @@ game.state.add('Menu', Menu);
 game.state.add('Game', Game);
 game.state.add('Game_Over', Game_Over);
 game.state.add('Game_Win', Game_Win);
+game.state.add('Game_Stat', Game_Stat);
 
-//game.state.start('Menu');
-game.state.start('Game');
+game.state.start('Menu');
+//game.state.start('Game');

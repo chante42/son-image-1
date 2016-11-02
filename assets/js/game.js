@@ -42,6 +42,12 @@ var Game = {
 		this.state.start('Game');
 	},
 	//
+	// clickMenu
+	//
+	clickMenu : function  (button) {
+		game.state.start('Menu');
+	},
+	//
     // 
     //
     clickImage: function (button){
@@ -71,7 +77,7 @@ var Game = {
 	create : function()  {
 		var startList = new Array();
 		var choixList = new Array();
-
+		
 		game.stage.backgroundColor = "#80CCFF";
 		this.bravoSon = game.add.audio('bravo');
 		this.recommencerSon = game.add.audio('recommencer');
@@ -116,18 +122,28 @@ var Game = {
 		console.log('+++++++++++++++++++');
 		console.log("startList : " + startList)	;
 		console.log("choixList : " + choixList)	;
-		// 
-		sonChoisi = game.rnd.integerInRange(1,choixList.length);
+		
+		// choisi un son et evite de poser 2 fois la même question 
+		do {
+			var sonChoisi = game.rnd.integerInRange(1,choixList.length);
+			
+			console.log("son choisi : "+sonChoisi+", choix : " + this.choix);
+		} while (	this.choix == choixList[sonChoisi -1]);
 		this.choix = choixList[sonChoisi -1];
-		console.log("son choisi : "+sonChoisi+", choix : " + this.choix);
+
+
+		this.positionXBouton =  LargeurJeuxPixel - 110,
+		// bouton pour  retoruner au menu 
+		this.suivantBtn = game.add.button(this.positionXBouton, 90, "button", this.clickMenu, this);
+        this.suivantBtn.addChild(new Phaser.Text(this.game, 6, 4, "Menu", { font: "bold 18px sans-serif", fill: '#ffffff' }));
+        this.suivantBtn.tint = 0x00FFFF;
 
 		// bouton pour relancer le son du mot.
-		this.positionXBouton =  LargeurJeuxPixel - 110,
-		this.rejoueBtn = game.add.button( this.positionXBouton , 90, "button", this.clickRepete, this);
+		this.rejoueBtn = game.add.button( this.positionXBouton , 130, "button", this.clickRepete, this);
         this.rejoueBtn.addChild(new Phaser.Text(this.game, 6, 4, "Répéter", { font: "bold 18px sans-serif", fill: '#ffffff' }));
 
         // bouton pour le mot suivant
-		this.suivantBtn = game.add.button(this.positionXBouton, 130, "button", this.clickSuivant, this);
+		this.suivantBtn = game.add.button(this.positionXBouton, 170, "button", this.clickSuivant, this);
         this.suivantBtn.addChild(new Phaser.Text(this.game, 6, 4, "Suivant", { font: "bold 18px sans-serif", fill: '#ffffff' }));
         this.suivantBtn.visible = false;
         this.suivantBtn.tint = 0x555555;
