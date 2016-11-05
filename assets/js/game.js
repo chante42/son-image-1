@@ -7,6 +7,8 @@ var Game = {
 	score : 3,
 	imagesListe : 0,
 	positionXBouton  : 0,
+	graphicsPoint :0,
+	graphicsJeux : 0,
 	//
 	//  preload
 	//
@@ -106,12 +108,22 @@ var Game = {
 			choixList.push(val);
 
 			// affiche sur 3 colonnes
-			posx = (LargeurJeuxPixel / NbImagesColonne + 1) * ((i -1) % NbImagesColonne);
+			if (NbImages != 1) {
+				posx = (LargeurJeuxPixel / Math.min(NbImagesColonne, NbImages) + 1) * ((i -1) % NbImagesColonne) + 8;
+			}
+			else {
+				posx = (LargeurJeuxPixel / 2) - 100;	
+			}
 			posy = 30 + Math.trunc((i - 1) / NbImagesColonne) * 300;
+			console.log("posx:"+posx+" posy:"+posy);
 
 			tmp = game.add.button(posx, posy, 'img'+val, this.clickImage, this);
-			tmp.scale.setTo(0.5, 0.5);
-			tmp.my = val;	
+
+			// adapte la taille de l'image
+			var scale = Math.min(LargeurImage/ tmp.width, HauteurImage/ tmp.height);
+			tmp.scale.setTo(scale, scale);
+
+			tmp.my = val;
 			this.imagesListe.add(tmp); // pour la destruction
 
 			console.log("choixList : " + choixList)	;
@@ -128,7 +140,7 @@ var Game = {
 			var sonChoisi = game.rnd.integerInRange(1,choixList.length);
 			
 			console.log("son choisi : "+sonChoisi+", choix : " + this.choix);
-		} while (	this.choix == choixList[sonChoisi -1]);
+		} while (	this.choix == choixList[sonChoisi -1] && NbImages != 1);
 		this.choix = choixList[sonChoisi -1];
 
 
@@ -147,6 +159,16 @@ var Game = {
         this.suivantBtn.addChild(new Phaser.Text(this.game, 6, 4, "Suivant", { font: "bold 18px sans-serif", fill: '#ffffff' }));
         this.suivantBtn.visible = false;
         this.suivantBtn.tint = 0x555555;
+
+        // dessine u contour a la zone point et bouton
+        this.graphicsPoint = game.add.graphics(this.positionXBouton -5, 4);
+        this.graphicsPoint.lineStyle(2, 0x0000FF, 1);
+	    this.graphicsPoint.drawRect(0, 0, LargeurJeuxPixel - this.positionXBouton -3, HauteurJeuxPixel - 30	);
+
+	    this.graphicsJeux = game.add.graphics(0,0);
+        this.graphicsJeux.lineStyle(2, 0x0000FF, 1);
+	    this.graphicsJeux.drawRect(0, 0, LargeurJeuxPixel-2, HauteurJeuxPixel - 2);
+
 
 		this.audio = game.add.audio('son'+this.choix);
         this.audio.play();
@@ -183,6 +205,9 @@ var Game = {
 
 		this.imagesListe.removeAll();
 		this.imagesListe= null;
+
+		this.graphicsJeux = null;
+		this.graphicsPoint = null;
 
 	}
 	   
