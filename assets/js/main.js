@@ -8,8 +8,7 @@ var NbImagesColonne = 3;
 var NbImagesTotale = 10;
 var HauteurImage = 200;
 var LargeurImage = 200;
-var NbImages = 3;
-var NiveauJeux = 2;
+var NbImages = 2;
 var Score = 0;
 
 // Create a new game instance 600px wide and 450px tall:

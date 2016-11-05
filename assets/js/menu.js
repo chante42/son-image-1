@@ -108,8 +108,8 @@ var Menu = {
         this.NiveauBtn[5].nbImage= 6;
 
         // Active le bon bouton
-        var buttonIndice = [0,0,0,4,1,5,2,6,3,7];
-        this.click(this.NiveauBtn[buttonIndice[NiveauJeux]]);
+        var buttonIndice = [0,0,1,2,3,4,5,6,7,8];
+        this.click(this.NiveauBtn[buttonIndice[NbImages]]);
 
         // creation de l'ecran d'aide
         var style = { font: "bold "+11*ratio*ratio+"px sans-serif", fill: '#ffffff' , align: 'left', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 40 };
