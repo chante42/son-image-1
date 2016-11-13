@@ -10,6 +10,7 @@ var HauteurImage = 200;
 var LargeurImage = 200;
 var NbImages = 2;
 var Score = 0;
+var Config=null;
 
 // Create a new game instance 600px wide and 450px tall:
 game = new Phaser.Game(LargeurJeuxPixel, HauteurJeuxPixel, Phaser.CANVAS, 'phaser-example');
@@ -26,7 +27,8 @@ game.state.add('Menu', Menu);
 game.state.add('Game', Game);
 game.state.add('Game_Over', Game_Over);
 game.state.add('Game_Win', Game_Win);
-game.state.add('Game_Stat', Game_Stat);
+game.state.add('Game_Resultat', Game_Resultat);
+game.state.add('Game_Description', Game_Description);
 
 game.state.start('Menu');
 //game.state.start('Game');

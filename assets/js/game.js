@@ -1,4 +1,3 @@
-
 var Game = {
 
 	rejoueBtn : 0,
@@ -18,14 +17,18 @@ var Game = {
 		game.load.audio('bravo', 'assets/audio/Fr-bravo.ogg');
 		game.load.audio('recommencer', 'assets/audio/Fr-recommencer.ogg');
 
+		
+
 	    // chargement des images
-	    for (i = 1 ; i<= NbImagesTotale; i++) {
-	    	game.load.image("img"+i, "./assets/images/"+i+".png", false);	
+	    for (i = 0 ; i< NbImagesTotale; i++) {
+	    	game.load.image("img"+(i+1), Config.objects[i].img, false);	
+	    	console.log("img"+(i+1)+':'+Config.objects[i].img);
 	    }
 	    
-	    // chargement des son
-	    for (i = 1 ; i<= NbImagesTotale; i++) {
-			game.load.audio('son'+i, 'assets/audio/'+i+'.ogg');
+	    // chargement des sons
+	    for (i = 0 ; i< NbImagesTotale; i++) {
+			game.load.audio('son'+(i+1), Config.objects[i].son);
+			console.log("son"+(i+1)+':'+Config.objects[i].son);
 		}
 		
 
@@ -73,6 +76,8 @@ var Game = {
        	}
         
     },
+
+    
 	//
 	//  create
 	//
@@ -146,9 +151,9 @@ var Game = {
 
 		this.positionXBouton =  LargeurJeuxPixel - 110,
 		// bouton pour  retoruner au menu 
-		this.suivantBtn = game.add.button(this.positionXBouton, 90, "button", this.clickMenu, this);
-        this.suivantBtn.addChild(new Phaser.Text(this.game, 6, 4, "Menu", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        this.suivantBtn.tint = 0x00FFFF;
+		this.menuBtn = game.add.button(this.positionXBouton, 90, "button", this.clickMenu, this);
+        this.menuBtn.addChild(new Phaser.Text(this.game, 6, 4, "Menu", { font: "bold 18px sans-serif", fill: '#ffffff' }));
+        this.menuBtn.tint = 0x00FFFF;
 
 		// bouton pour relancer le son du mot.
 		this.rejoueBtn = game.add.button( this.positionXBouton , 130, "button", this.clickRepete, this);
@@ -200,6 +205,9 @@ var Game = {
 		this.audio.stop();
 		this.audio = null;
 		
+		this.menuBtn.kill();
+		this.menuBtn = null;
+
 		this.suivantBtn.kill();
 		this.suivantBtn = null;
 

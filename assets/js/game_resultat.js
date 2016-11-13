@@ -1,4 +1,4 @@
-var Game_Stat = {
+var Game_Resultat = {
 
     preload : function() {
         // Load the needed image for this game screen.

@@ -10,6 +10,37 @@ var Menu = {
         game.load.image('aide', './assets/images/aide.png');
         game.load.spritesheet("button", "./assets/images/button-92x31.png", 92,31);
         game.load.image("playGame-btn", "./assets/images/playGame-btn.png");
+
+        // recupération du json de configuration
+        var  configFile = UrlParametre("config");
+        if ( configFile){
+                
+
+                console.log("config externe "+configFile);
+                NbImagesTotale = Config.objects.length;
+        }
+        else {
+            console.log("config interne");
+            Config = {
+                name : "interne",
+                description : "description d'interne",
+                objects : [
+                    {   img : './assets/images/cadeau.png', son : './assets/audio/Fr-cadeau.ogg', nom: 'cadeau'},
+                    {   img : './assets/images/fleur.png', son : './assets/audio/Fr-fleur.ogg', nom: 'fleur'},
+                    {   img : './assets/images/sapin.png', son : './assets/audio/Fr-sapin.ogg', nom: 'sapin'},
+                    {   img : './assets/images/feu.png', son : './assets/audio/Fr-feu.ogg', nom: 'feu'},
+                    {   img : './assets/images/cuillere.png', son : './assets/audio/Fr-cuillere.ogg', nom: 'cuillere'},
+                    {   img : './assets/images/fourchette.png', son : './assets/audio/Fr-fourchette.ogg', nom: 'fourchette'},
+                    {   img : './assets/images/couteau.png', son : './assets/audio/Fr-couteau.ogg', nom: 'couteau'},
+                    {   img : './assets/images/soleil.png', son : './assets/audio/Fr-soleil.ogg', nom: 'soleil'},
+                    {   img : './assets/images/nuage.png', son : './assets/audio/Fr-nuage.ogg', nom: 'nuage'},
+                    {   img : './assets/images/etoile.png', son : './assets/audio/Fr-etoile.ogg', nom: 'etoile'},
+                ]
+            }
+
+            NbImagesTotale = Config.objects.length;
+        }
+        
     },
 
     //
@@ -43,10 +74,16 @@ var Menu = {
         console.log("aideFin");
     },
     //
-    // stat
+    // resultat
     //
-    stat: function () {
-        game.state.start('Game_Stat');
+    resultat: function () {
+        game.state.start('Game_Resultat');
+    },
+    //
+    // Description
+    //
+    clickDescription : function (button){
+        game.state.start('Game_Description');
     },
     //
     //
@@ -67,19 +104,24 @@ var Menu = {
         this.add.button(0, 0, 'menu');
 
         // bouton start
-        var playBtn = game.add.button(LargeurJeuxPixel / 2 , y +  170 * ratio,'playGame-btn', this.startGame, this);
-        playBtn.anchor.setTo(0.5,0.5);
+        this.playBtn = game.add.button(LargeurJeuxPixel / 2 , y +  170 * ratio,'playGame-btn', this.startGame, this);
+        this.playBtn.anchor.setTo(0.5,0.5);
 
         // bouton règle du jeux
-        var helpBtn = game.add.button(10 * ratio, HauteurJeuxPixel - 40 *ratio  ,"button", this.aide, this);
-        helpBtn.tint = 0x00ff00;
-        helpBtn.addChild(new Phaser.Text(this.game, 5, 6, "Règles du jeux", { font: "bold 12px sans-serif", fill: '#ffffff' }));
+        this.helpBtn = game.add.button(10 * ratio, HauteurJeuxPixel - 40 *ratio  ,"button", this.aide, this);
+        this.helpBtn.tint = 0x00ff00;
+        this.helpBtn.addChild(new Phaser.Text(this.game, 5, 6, "Règles du jeux", { font: "bold 12px sans-serif", fill: '#ffffff' }));
 
-        // bouton stat
-        var statBtn = game.add.button(LargeurJeuxPixel - 10 * ratio - 90 , HauteurJeuxPixel - 40 *ratio  ,"button", this.stat, this);
-        statBtn.tint = 0x00ff00;
-        statBtn.addChild(new Phaser.Text(this.game, 5, 6, "Statistique", { font: "bold 14px sans-serif", fill: '#ffffff' }));
+        // bouton resultat
+        this.resultatBtn = game.add.button(LargeurJeuxPixel - 10 * ratio - 90 , HauteurJeuxPixel - 40 *ratio  ,"button", this.resultat, this);
+        this.resultatBtn.tint = 0x00ff00;
+        this.resultatBtn.addChild(new Phaser.Text(this.game, 5, 6, "Resultat", { font: "bold 14px sans-serif", fill: '#ffffff' }));
 
+        // bouton pour description test
+        this.descriptionBtn = game.add.button( 100 + 10* ratio, HauteurJeuxPixel - 40 *ratio , "button", this.clickDescription, this);
+        this.descriptionBtn.tint = 0x00FF00
+        this.descriptionBtn.addChild(new Phaser.Text(this.game, 6, 4, "Desc test", { font: "bold 14px sans-serif", fill: '#ffffff' }));
+        
 
 
         // selection du niveau
@@ -114,7 +156,7 @@ var Menu = {
         // creation de l'ecran d'aide
         var style = { font: "bold "+11*ratio*ratio+"px sans-serif", fill: '#ffffff' , align: 'left', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 40 };
         AideEcran = game.add.button(0,0, "aide", this.aideFin, this);
-        AideEcran.addChild(new Phaser.Text(this.game, 10, 20 * ratio, "Aide\n\nL'objectif est de trouver des paires de lettre, qui sont representées par des lettres Alpha, scribe ou manuscrite. Pour cela, il faut cliquer avec la souris sur le dos de la carte,pour faire apparaitre la lettre.\nQuand 2 lettres sont retournées, si elle forme une paire elle reste dans cet état.\n1 point est ajouté au score.\nSinon les 2 cartes reviennes en position initiale.",  style));
+        AideEcran.addChild(new Phaser.Text(this.game, 10, 20 * ratio, "Aide\n\nL'objectif est faire l'association entre le son entendue et l'image, en clickant sur cette dernière.\nLes niveaux représentent le nombre d'images présentées avec chaque son.\nLes points:\n - 3 points si bonne reponse au premier essais\n- 2 points si bonne reponse au deuxieme essais.\n- 1 points si bonne reponse au troisième essais.\n\n",  style));
         AideEcran.visible = false;
 
 
@@ -128,6 +170,36 @@ var Menu = {
         // Change the state to the actual game.
         this.state.start('Game');
 
+    },
+
+    //
+    //
+    //
+    shutdown: function () { 
+       this.NiveauBtn[0].kill();
+       this.NiveauBtn[0]=null;
+       this.NiveauBtn[1].kill();
+       this.NiveauBtn[1]=null;
+       this.NiveauBtn[2].kill();
+       this.NiveauBtn[2]=null;
+       this.NiveauBtn[3].kill();
+       this.NiveauBtn[3]=null;
+       this.NiveauBtn[4].kill();
+       this.NiveauBtn[4]=null;
+       this.NiveauBtn[5].kill();
+       this.NiveauBtn[5]=null;
+       
+       this.descriptionBtn.kill();
+       this.descriptionBtn = null;
+
+       this.playBtn.kill();
+       this.playBtn = null;
+
+       this.helpBtn.kill();
+       this.helpBtn = null;
+
+       this.resultatBtn.kill();
+       this.resultatBtn = null;
     }
 
 };
