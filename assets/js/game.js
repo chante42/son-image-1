@@ -3,7 +3,7 @@ var Game = {
 	rejoueBtn : 0,
 	audio : 0,
 	choix : -1,
-	score : 3,
+	score : 2,
 	imagesListe : 0,
 	positionXBouton  : 0,
 	graphicsPoint :0,
@@ -65,8 +65,17 @@ var Game = {
 			this.suivantBtn.visible = true;
 
         	button.tint = 0xaaaaff;    
+        	
+        	// met a jours les stat
+        	if (this.score == 2) { Config.objects[this.choix -1].bon1++;}
+    		if (this.score == 1) {Config.objects[this.choix -1].bon2++;}
+    		if (this.score == 0) {Config.objects[this.choix -1].faux++;}
+
+
         	Score += this.score;  
-        	this.score = 3;  
+        	this.score = 2;  
+        	
+        	
     	}
        	else {
        		this.recommencerSon.play();
@@ -176,6 +185,8 @@ var Game = {
 
 
 		this.audio = game.add.audio('son'+this.choix);
+		Config.objects[this.choix -1].enonce++;
+        
         this.audio.play();
 
 	},

@@ -7,14 +7,35 @@ var Game_Resultat = {
 
     create : function() {
         game.stage.backgroundColor = "#090909";
+        var msg ='';
         
         // Create button to start game like in Menu.
         this.add.button(0, 0, 'gameover', this.startGame, this);
 
         // Add text with information about the score from last game.
-        game.add.text(20, HauteurJeuxPixel/6, "STATISTIQUE ...", { font: "bold 48px sans-serif", fill: "#46c0f9", align: "center"});
+        game.add.text(20, 20, "RESULTAT ...", { font: "bold 48px sans-serif", fill: "#46c0f9", align: "center"});
+
+        // affiche les resultats
+        var style = { font: "bold "+16+"px courier", fill: '#ffffff' , align: 'left', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 40 };
+        // recupere tous les nom des objets
+        msg =  "|"+ "%-20s".$("Nom item") +' | '+"%-4s".$("Nbr")+' | '+"%-4s".$("bon1")+' | '+"%-4s".$("bon2")+' | '+"%-4s".$("faux")+' |*\n';
+        msg =  msg +"|---------------------|------|------|------|------|*\n";
+        for (i = 0 ; i< NbImagesTotale; i++) {
+            msg =  msg +"|"+ "%-20s".$(Config.objects[i].nom) +' | '+"%-4d".$(Config.objects[i].enonce)+' | '+"%-4d".$(Config.objects[i].bon1)+' | '+"%-4d".$(Config.objects[i].bon2)+' | '+"%-4d".$(Config.objects[i].faux)+' |*\n';
+
+            if (i% 5 ==0 && i != 0) {
+                game.add.text(20 + (Math.floor(i /5) -1) * 500 , 70, msg, style);
+                msg =  "|" + "%-20s".$("Nom item") +' | '+"%-4s".$("Nbr")+' | '+"%-4s".$("bon1")+' | '+"%-4s".$("bon2")+' | '+"%-4s".$("faux")+' |*\n';
+                msg =  msg +"|---------------------|------|------|------|------|*\n";
+            }
+        }
+        // affiche le reste
+        game.add.text(20 + (Math.floor(i /5) -1) * 500 , 70, msg, style);
         
-        game.add.text(LargeurJeuxPixel/6, HauteurJeuxPixel/6 *5 , "cliquez pour recommencer", { font: "bold 12px sans-serif", fill: "#fff", align: "center" });
+
+
+
+        game.add.text(LargeurJeuxPixel/6, HauteurJeuxPixel -20  , "cliquez pour retourner au menu", { font: "bold 12px sans-serif", fill: "#fff", align: "center" });
     },
 
     startGame: function () {
@@ -25,3 +46,5 @@ var Game_Resultat = {
     }
 
 };
+
+

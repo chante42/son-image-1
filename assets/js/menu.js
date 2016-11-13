@@ -11,35 +11,6 @@ var Menu = {
         game.load.spritesheet("button", "./assets/images/button-92x31.png", 92,31);
         game.load.image("playGame-btn", "./assets/images/playGame-btn.png");
 
-        // recupération du json de configuration
-        var  configFile = UrlParametre("config");
-        if ( configFile){
-                
-
-                console.log("config externe "+configFile);
-                NbImagesTotale = Config.objects.length;
-        }
-        else {
-            console.log("config interne");
-            Config = {
-                name : "interne",
-                description : "description d'interne",
-                objects : [
-                    {   img : './assets/images/cadeau.png', son : './assets/audio/Fr-cadeau.ogg', nom: 'cadeau'},
-                    {   img : './assets/images/fleur.png', son : './assets/audio/Fr-fleur.ogg', nom: 'fleur'},
-                    {   img : './assets/images/sapin.png', son : './assets/audio/Fr-sapin.ogg', nom: 'sapin'},
-                    {   img : './assets/images/feu.png', son : './assets/audio/Fr-feu.ogg', nom: 'feu'},
-                    {   img : './assets/images/cuillere.png', son : './assets/audio/Fr-cuillere.ogg', nom: 'cuillere'},
-                    {   img : './assets/images/fourchette.png', son : './assets/audio/Fr-fourchette.ogg', nom: 'fourchette'},
-                    {   img : './assets/images/couteau.png', son : './assets/audio/Fr-couteau.ogg', nom: 'couteau'},
-                    {   img : './assets/images/soleil.png', son : './assets/audio/Fr-soleil.ogg', nom: 'soleil'},
-                    {   img : './assets/images/nuage.png', son : './assets/audio/Fr-nuage.ogg', nom: 'nuage'},
-                    {   img : './assets/images/etoile.png', son : './assets/audio/Fr-etoile.ogg', nom: 'etoile'},
-                ]
-            }
-
-            NbImagesTotale = Config.objects.length;
-        }
         
     },
 
@@ -115,12 +86,12 @@ var Menu = {
         // bouton resultat
         this.resultatBtn = game.add.button(LargeurJeuxPixel - 10 * ratio - 90 , HauteurJeuxPixel - 40 *ratio  ,"button", this.resultat, this);
         this.resultatBtn.tint = 0x00ff00;
-        this.resultatBtn.addChild(new Phaser.Text(this.game, 5, 6, "Resultat", { font: "bold 14px sans-serif", fill: '#ffffff' }));
+        this.resultatBtn.addChild(new Phaser.Text(this.game, 13, 6, "Resultat", { font: "bold 14px sans-serif", fill: '#ffffff' }));
 
         // bouton pour description test
         this.descriptionBtn = game.add.button( 100 + 10* ratio, HauteurJeuxPixel - 40 *ratio , "button", this.clickDescription, this);
         this.descriptionBtn.tint = 0x00FF00
-        this.descriptionBtn.addChild(new Phaser.Text(this.game, 6, 4, "Desc test", { font: "bold 14px sans-serif", fill: '#ffffff' }));
+        this.descriptionBtn.addChild(new Phaser.Text(this.game, 10, 5, "Desc test", { font: "bold 14px sans-serif", fill: '#ffffff' }));
         
 
 
