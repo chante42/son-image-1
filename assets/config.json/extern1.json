@@ -1,0 +1,16 @@
+{
+    "name" : "externe 1",
+    "description" : "description externe 1",
+    "objects" : [
+        {   "img" : "./assets/images/cadeau.png", "son" : "./assets/audio/Fr-cadeau.ogg", "nom": "cadeau"},
+        {   "img" : "./assets/images/fleur.png", "son" : "./assets/audio/Fr-fleur.ogg", "nom": "fleur"},
+        {   "img" : "./assets/images/sapin.png", "son" : "./assets/audio/Fr-sapin.ogg", "nom": "sapin"},
+        {   "img" : "./assets/images/feu.png", "son" : "./assets/audio/Fr-feu.ogg", "nom": "feu"},
+        {   "img" : "./assets/images/cuillere.png", "son" : "./assets/audio/Fr-cuillere.ogg", "nom": "cuillere"},
+        {   "img" : "./assets/images/fourchette.png", "son" : "./assets/audio/Fr-fourchette.ogg", "nom": "fourchette"},
+        {   "img" : "./assets/images/couteau.png", "son" : "./assets/audio/Fr-couteau.ogg", "nom": "couteau"},
+        {   "img" : "./assets/images/soleil.png", "son" : "./assets/audio/Fr-soleil.ogg", "nom": "soleil"},
+        {   "img" : "./assets/images/nuage.png", "son" : "./assets/audio/Fr-nuage.ogg", "nom": "nuage"},
+        {   "img" : "./assets/images/etoile.png", "son" : "./assets/audio/Fr-etoile.ogg", "nom": "etoile"}
+    ]
+}

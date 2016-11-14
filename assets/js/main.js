@@ -21,11 +21,41 @@ function UrlParametre (sVar) {
   return unescape(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + escape(sVar).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 }
 
+
+// First parameter is how our state will be called.
+// Second parameter is an object containing the needed methods for state functionality
+game.state.add('Menu', Menu);
+game.state.add('Game', Game);
+game.state.add('Game_Over', Game_Over);
+game.state.add('Game_Win', Game_Win);
+game.state.add('Game_Resultat', Game_Resultat);
+game.state.add('Game_Description', Game_Description);
+
+
+
+
 // recupération du json de configuration
 var  configFile = UrlParametre("config");
 if ( configFile){
-        console.log("config externe "+configFile);
-        NbImagesTotale = Config.objects.length;
+        console.log("config externe loading..."+configFile);
+
+        $.getJSON("./assets/config.json/extern1.json", function(result) {
+        	console.log("config externe loaded : "+Config);
+        	Config = result;
+        	NbImagesTotale = Config.objects.length;
+        	
+        	// initialise les compteurs:
+			for (i = 0 ; i< NbImagesTotale; i++) {
+			    Config.objects[i].enonce = 0;
+			    Config.objects[i].bon1 = 0;
+			    Config.objects[i].bon2 = 0;
+			    Config.objects[i].faux = 0;
+			}
+        
+        });
+        
+        
+        
 }
 else {
     console.log("config interne");
@@ -47,25 +77,19 @@ else {
     }
 
     NbImagesTotale = Config.objects.length;
-}
 
-// initialise les compteurs:
-for (i = 0 ; i< NbImagesTotale; i++) {
-    Config.objects[i].enonce = 0;
-    Config.objects[i].bon1 = 0;
-    Config.objects[i].bon2 = 0;
-    Config.objects[i].faux = 0;
-}
+    // initialise les compteurs:
+	for (i = 0 ; i< NbImagesTotale; i++) {
+	    Config.objects[i].enonce = 0;
+	    Config.objects[i].bon1 = 0;
+	    Config.objects[i].bon2 = 0;
+	    Config.objects[i].faux = 0;
+	}
         
+}
 
-// First parameter is how our state will be called.
-// Second parameter is an object containing the needed methods for state functionality
-game.state.add('Menu', Menu);
-game.state.add('Game', Game);
-game.state.add('Game_Over', Game_Over);
-game.state.add('Game_Win', Game_Win);
-game.state.add('Game_Resultat', Game_Resultat);
-game.state.add('Game_Description', Game_Description);
+
+
 
 game.state.start('Menu');
 //game.state.start('Game');

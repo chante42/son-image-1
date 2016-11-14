@@ -11,9 +11,14 @@ var Menu = {
         game.load.spritesheet("button", "./assets/images/button-92x31.png", 92,31);
         game.load.image("playGame-btn", "./assets/images/playGame-btn.png");
 
-        
+        // recupération du json de configuration
+        this.configFile = null;
+        this.configFile = UrlParametre("config");
+        if ( configFile){
+            game.load.json('configJson', this.configFile);
+            console.log('loading....'+this.configFile);
+        }
     },
-
     //
     // 
     //
@@ -55,6 +60,51 @@ var Menu = {
     //
     clickDescription : function (button){
         game.state.start('Game_Description');
+    },
+    //
+    //   loadConfigJson
+    //
+    loadConfigJson : function() {
+
+        // ne relie pas le fichier de config si déjà lue
+        if (Config) { return;}
+
+        // il y a t'il un parametre dans l'url ???
+        if ( configFile){
+            console.log("config externe loaded"+configFile);
+            Config = game.cache.getJSON('configJson');
+            NbImagesTotale = Config.objects.length;
+        }
+        // initalisation avec des valeurs par defaut
+        else {
+            console.log("config interne");
+            Config = {
+                name : "interne",
+                description : "description d'interne",
+                objects : [
+                    {   img : './assets/images/cadeau.png', son : './assets/audio/Fr-cadeau.ogg', nom: 'cadeau'},
+                    {   img : './assets/images/fleur.png', son : './assets/audio/Fr-fleur.ogg', nom: 'fleur'},
+                    {   img : './assets/images/sapin.png', son : './assets/audio/Fr-sapin.ogg', nom: 'sapin'},
+                    {   img : './assets/images/feu.png', son : './assets/audio/Fr-feu.ogg', nom: 'feu'},
+                    {   img : './assets/images/cuillere.png', son : './assets/audio/Fr-cuillere.ogg', nom: 'cuillere'},
+                    {   img : './assets/images/fourchette.png', son : './assets/audio/Fr-fourchette.ogg', nom: 'fourchette'},
+                    {   img : './assets/images/couteau.png', son : './assets/audio/Fr-couteau.ogg', nom: 'couteau'},
+                    {   img : './assets/images/soleil.png', son : './assets/audio/Fr-soleil.ogg', nom: 'soleil'},
+                    {   img : './assets/images/nuage.png', son : './assets/audio/Fr-nuage.ogg', nom: 'nuage'},
+                    {   img : './assets/images/etoile.png', son : './assets/audio/Fr-etoile.ogg', nom: 'etoile'},
+                ]
+            }
+
+            NbImagesTotale = Config.objects.length;
+        }
+
+        // initialise les compteurs:
+        for (i = 0 ; i< NbImagesTotale; i++) {
+            Config.objects[i].enonce = 0;
+            Config.objects[i].bon1 = 0;
+            Config.objects[i].bon2 = 0;
+            Config.objects[i].faux = 0;
+        }
     },
     //
     //
@@ -130,7 +180,8 @@ var Menu = {
         AideEcran.addChild(new Phaser.Text(this.game, 10, 20 * ratio, "Aide\n\nL'objectif est faire l'association entre le son entendue et l'image, en clickant sur cette dernière.\nLes niveaux représentent le nombre d'images présentées avec chaque son.\nLes points:\n - 3 points si bonne reponse au premier essais\n- 2 points si bonne reponse au deuxieme essais.\n- 1 points si bonne reponse au troisième essais.\n\n",  style));
         AideEcran.visible = false;
 
-
+        this.loadConfigJson();
+        
     },
 
     
