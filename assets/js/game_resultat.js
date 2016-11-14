@@ -23,14 +23,14 @@ var Game_Resultat = {
         for (i = 0 ; i< NbImagesTotale; i++) {
             msg =  msg +"|"+ "%-20s".$(Config.objects[i].nom) +' | '+"%-4d".$(Config.objects[i].enonce)+' | '+"%-4d".$(Config.objects[i].bon1)+' | '+"%-4d".$(Config.objects[i].bon2)+' | '+"%-4d".$(Config.objects[i].faux)+' |*\n';
 
-            if (i% 5 ==0 && i != 0) {
-                game.add.text(20 + (Math.floor(i /5) -1) * 500 , 70, msg, style);
+            if (i% MaxResultColumn ==0 && i != 0) {
+                game.add.text(20 + (Math.trunc((i -1) /MaxResultColumn)) * 500 , 70, msg, style);
                 msg =  "|" + "%-20s".$("Nom item") +' | '+"%-4s".$("Nbr")+' | '+"%-4s".$("bon1")+' | '+"%-4s".$("bon2")+' | '+"%-4s".$("faux")+' |*\n';
                 msg =  msg +"|---------------------|------|------|------|------|*\n";
             }
         }
         // affiche le reste
-        game.add.text(20 + (Math.floor(i /5) -1) * 500 , 70, msg, style);
+        game.add.text(20 + (Math.trunc(i / MaxResultColumn)) * 500 , 70, msg, style);
         
 
 

@@ -71,6 +71,10 @@ var Game = {
     		if (this.score == 1) {Config.objects[this.choix -1].bon2++;}
     		if (this.score == 0) {Config.objects[this.choix -1].faux++;}
 
+    		if (this.lastChoix  != this.choix) {
+    			Config.objects[this.choix -1].enonce++;
+    			this.lastChoix = this.choix;
+    		}
 
         	Score += this.score;  
         	this.score = 2;  
@@ -184,9 +188,7 @@ var Game = {
 	    this.graphicsJeux.drawRect(0, 0, LargeurJeuxPixel-2, HauteurJeuxPixel - 2);
 
 
-		this.audio = game.add.audio('son'+this.choix);
-		Config.objects[this.choix -1].enonce++;
-        
+		this.audio = game.add.audio('son'+this.choix);    
         this.audio.play();
 
 	},
