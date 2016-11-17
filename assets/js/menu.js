@@ -14,7 +14,7 @@ var Menu = {
         // recupération du json de configuration
         this.configFile = null;
         this.configFile = UrlParametre("config");
-        if ( configFile){
+        if ( this.configFile){
             game.load.json('configJson', this.configFile);
             console.log('loading....'+this.configFile);
         }
@@ -70,8 +70,8 @@ var Menu = {
         if (Config) { return;}
 
         // il y a t'il un parametre dans l'url ???
-        if ( configFile){
-            console.log("config externe loaded"+configFile);
+        if ( this.configFile){
+            console.log("config externe loaded"+this.configFile);
             Config = game.cache.getJSON('configJson');
             NbImagesTotale = Config.objects.length;
         }
