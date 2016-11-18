@@ -1,3 +1,8 @@
+//"use strict";
+// pas posiible car erreur de "i" non déclaré dans f.onload ????????
+//
+
+
 var Menu = {
     NiveauBtn : new Array(),
     AideEcran : "",
@@ -39,14 +44,14 @@ var Menu = {
     // aide
     //
     aide: function () {
-        AideEcran.visible = true;
+        this.AideEcran.visible = true;
         console.log("aide");
     },
     //
     // aideFin
     //
     aideFin: function () {
-        AideEcran.visible = false;
+        this.AideEcran.visible = false;
         console.log("aideFin");
     },
     //
@@ -73,6 +78,14 @@ var Menu = {
         if ( this.configFile){
             console.log("config externe loaded"+this.configFile);
             Config = game.cache.getJSON('configJson');
+
+            if (Config == null) {
+                 Config = {
+                    name : "erreur",
+                    description : "impossible de charger le fichier de configuration : "+this.configFile,
+                    objects : []
+                }
+            }
             NbImagesTotale = Config.objects.length;
         }
         // initalisation avec des valeurs par defaut
@@ -176,9 +189,9 @@ var Menu = {
 
         // creation de l'ecran d'aide
         var style = { font: "bold "+11*ratio*ratio+"px sans-serif", fill: '#ffffff' , align: 'left', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 40 };
-        AideEcran = game.add.button(0,0, "aide", this.aideFin, this);
-        AideEcran.addChild(new Phaser.Text(this.game, 10, 20 * ratio, "Aide\n\nL'objectif est faire l'association entre le son entendue et l'image, en clickant sur cette dernière.\nLes niveaux représentent le nombre d'images présentées avec chaque son.\nLes points:\n - 3 points si bonne reponse au premier essais\n- 2 points si bonne reponse au deuxieme essais.\n- 1 points si bonne reponse au troisième essais.\n\n",  style));
-        AideEcran.visible = false;
+        this.AideEcran = game.add.button(0,0, "aide", this.aideFin, this);
+        this.AideEcran.addChild(new Phaser.Text(this.game, 10, 20 * ratio, "Aide\n\nL'objectif est faire l'association entre le son entendue et l'image, en clickant sur cette dernière.\nLes niveaux représentent le nombre d'images présentées avec chaque son.\nLes points:\n - 3 points si bonne reponse au premier essais\n- 2 points si bonne reponse au deuxieme essais.\n- 1 points si bonne reponse au troisième essais.\n\n",  style));
+        this.AideEcran.visible = false;
 
         this.loadConfigJson();
         

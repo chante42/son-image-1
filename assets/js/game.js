@@ -1,3 +1,5 @@
+"use strict";
+
 var Game = {
 
 	rejoueBtn : 0,
@@ -97,6 +99,9 @@ var Game = {
 	create : function()  {
 		var startList = new Array();
 		var choixList = new Array();
+		var noImg = 0;
+		var val=0;
+		var tmp;
 		
 		game.stage.backgroundColor = "#80CCFF";
 		this.bravoSon = game.add.audio('bravo');

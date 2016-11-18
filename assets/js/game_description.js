@@ -19,10 +19,11 @@ var Game_Description = {
         // Create button to start game like in Menu.
         this.add.button(0, 0, 'gameover', this.startGame, this);
 
-        // Add text with information about the score from last game.
-        game.add.text(30, 30, 'Nom :'+Config.name+"\nDescription : "+Config.description+"\n"+"Liste des images et sons :\n"+msg);
-
         var style = { font: "bold "+16+"px sans-serif", fill: '#ffffff' , align: 'left', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 40 };
+        // Add text with information about the score from last game.
+        game.add.text(30, 30, 'Nom :'+Config.name+"\nDescription : "+Config.description+"\n"+"Liste des images et sons :\n"+msg,style);
+
+        
         game.add.text(LargeurJeuxPixel/6, HauteurJeuxPixel/6 *5 , "cliquez pour recommencer", style);
     },
 
